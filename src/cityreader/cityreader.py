@@ -1,4 +1,5 @@
 import csv
+import sys
 
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
@@ -10,8 +11,8 @@ class City:
         self.lat = lat
         self.lon = lon
 
-    def __str__(self):
-        return f"{self.name}, {self.lat}, {self.lon}"
+    def __repr__(self):
+        return f"{self.name}, {self.lat},{self.lon}"
 
 
 # We have a collection of US cities with population over 750,000 stored in the
@@ -35,20 +36,21 @@ def cityreader(cities=[]):
     # `cities` list
     # open cities.csv file
 
-    with open("cities.csv", mode="r") as file:
+    with open("cities.csv", "r") as file:
         # read from csv file
         csvFile = csv.reader(file)
         #
         for lines in csvFile:
             if lines[0] != "city":
-                new_city = City(lines[0], lines[3], lines[4])
-                cities.append(new_city)
+                cities.append(City(str(lines[0]), float(lines[3]), float(lines[4])))
             else:
                 pass
     return cities
 
 
 cityreader(cities)
+
+print(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
@@ -84,6 +86,26 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
+
+# first_pair = input(
+#     "Please provide the first lat/lon coordinates, separated by a space, like so : lat lon"
+# )
+
+# lat_o = int(sys.argv[0])
+
+# lon_o = int(sys.arg[1])
+
+# print(lat_o, lon_o)
+
+# # second_pair = input(
+# #     "Please provide the first lat/lon coordinates, separated by a space, like so : lat lon"
+# # )
+
+# lat_t = int(sys.argv[0])
+
+# lon_t = int(sys.argv[1])
+
+# print(lat_t, lon_t)
 
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
